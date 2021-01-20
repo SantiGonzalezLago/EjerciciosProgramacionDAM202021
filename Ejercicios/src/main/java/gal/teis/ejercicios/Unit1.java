@@ -1,6 +1,6 @@
 package gal.teis.ejercicios;
 
-import gal.teis.io.KeyboardScanner;
+import gal.chanchi.scanner.KeyboardScanner;
 
 @SuppressWarnings("unused")
 public class Unit1 {

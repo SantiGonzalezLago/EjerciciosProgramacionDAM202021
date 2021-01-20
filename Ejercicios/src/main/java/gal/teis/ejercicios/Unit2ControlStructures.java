@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
-import gal.teis.io.KeyboardScanner;
+import gal.chanchi.scanner.KeyboardScanner;
 
 @SuppressWarnings("unused")
 public class Unit2ControlStructures {
