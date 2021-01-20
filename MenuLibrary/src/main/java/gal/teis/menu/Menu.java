@@ -8,7 +8,6 @@ public class Menu {
 	private ArrayList<String> options;
 
 	public Menu(String... options) {
-		System.out.println("Con parametors");
 		this.options = new ArrayList<>(Arrays.asList(options));
 	}
 
@@ -20,6 +19,10 @@ public class Menu {
 		for (String option : newOptions) {
 			options.add(option);
 		}
+	}
+
+	public boolean removeOption(String removedOption) {
+		return options.remove(removedOption);
 	}
 
 	public int getExitOption() {
