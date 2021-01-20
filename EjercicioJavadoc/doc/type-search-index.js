@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"gal.teis.javadoc","l":"Principal_For_Ejercicios"}];updateSearchResults();
