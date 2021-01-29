@@ -1,5 +1,7 @@
 package gal.teis.main;
 
+import java.math.BigDecimal;
+
 import gal.teis.model.Account;
 
 public class App {
@@ -10,11 +12,11 @@ public class App {
 		System.out.println("Objeto creado: " + acc);
 		acc.setAccountNumber("666", (byte) 32);
 		System.out.println("Tras intentar cambiar número de cuenta con acceso erróneo: " + acc);
-		acc.addBalance(200);
+		acc.addBalance(new BigDecimal(200));
 		System.out.println("Tras ingresar dinero: " + acc);
-		acc.removeBalance(300);
+		acc.removeBalance(new BigDecimal(300));
 		System.out.println("Tras intentar retirar más dinero del posible: " + acc);
-		acc.removeBalance(100);
+		acc.removeBalance(new BigDecimal(100));
 		System.out.println("Tras retirar dinero: " + acc);
 	}
 }

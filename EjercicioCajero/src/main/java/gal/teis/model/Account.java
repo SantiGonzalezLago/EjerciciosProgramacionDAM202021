@@ -1,10 +1,17 @@
 package gal.teis.model;
 
+import java.math.BigDecimal;
+
 public class Account {
 	private String name;
 	private String accountNumber;
-	private double interestType;
-	private double balance;
+	private BigDecimal interestType;
+	private BigDecimal balance;
+
+	public Account() {
+		interestType = new BigDecimal(0);
+		balance = new BigDecimal(0);
+	}
 
 	public String getName() {
 		return name;
@@ -27,26 +34,26 @@ public class Account {
 		return operationCompleted;
 	}
 
-	public double getInterestType() {
+	public BigDecimal getInterestType() {
 		return interestType;
 	}
 
-	public void setInterestType(double interestType) {
+	public void setInterestType(BigDecimal interestType) {
 		this.interestType = interestType;
 	}
 
-	public double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void addBalance(double amount) {
-		balance += amount;
+	public void addBalance(BigDecimal amount) {
+		balance = balance.add(amount);
 	}
 
-	public boolean removeBalance(double amount) {
+	public boolean removeBalance(BigDecimal amount) {
 		boolean operationCompleted = false;
-		if (balance >= amount) {
-			balance -= amount;
+		if (balance.compareTo(amount) != -1) {
+			balance = balance.subtract(amount);
 			operationCompleted = true;
 		}
 		return operationCompleted;
