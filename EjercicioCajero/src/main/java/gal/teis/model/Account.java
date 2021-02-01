@@ -3,22 +3,15 @@ package gal.teis.model;
 import java.math.BigDecimal;
 
 public class Account {
-	private String name;
 	private String accountNumber;
+	private String pwd;
+	private String name;
 	private BigDecimal interestType;
 	private BigDecimal balance;
 
 	public Account() {
 		interestType = new BigDecimal(0);
 		balance = new BigDecimal(0);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getAccountNumber() {
@@ -32,6 +25,27 @@ public class Account {
 			operationCompleted = true;
 		}
 		return operationCompleted;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean setPwd(String curPwd, String newPwd, String repeatNewPwd) {
+		boolean pwdChanged = false;
+		if (pwd.equals(curPwd) && newPwd.equals(repeatNewPwd)) {
+			pwd = newPwd;
+			pwdChanged = true;
+		}
+		return pwdChanged;
+	}
+
+	public boolean checkPwd(String pwd) {
+		return this.pwd.equals(pwd);
 	}
 
 	public BigDecimal getInterestType() {
