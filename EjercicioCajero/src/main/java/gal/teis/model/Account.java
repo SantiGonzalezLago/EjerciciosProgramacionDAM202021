@@ -3,11 +3,24 @@ package gal.teis.model;
 import java.math.BigDecimal;
 
 public class Account {
+	
+	public static final byte ADMIN_ACCESSS_LEVEL = 1;
+	public static final byte BASIC_ACCESSS_LEVEL = 2;
+	
+	
 	private String accountNumber;
 	private String pwd;
 	private String name;
 	private BigDecimal interestType;
 	private BigDecimal balance;
+
+	public Account(String accountNumber, String pwd, String name, BigDecimal balance) {
+		this.accountNumber = accountNumber;
+		this.pwd = pwd;
+		this.name = name;
+		this.balance = balance;
+		interestType = new BigDecimal(0);
+	}
 
 	public Account() {
 		interestType = new BigDecimal(0);
@@ -20,7 +33,7 @@ public class Account {
 
 	public boolean setAccountNumber(String accountNumber, byte accessLevel) {
 		boolean operationCompleted = false;
-		if (accessLevel == 1) {
+		if (accessLevel == ADMIN_ACCESSS_LEVEL) {
 			this.accountNumber = accountNumber;
 			operationCompleted = true;
 		}
@@ -31,8 +44,9 @@ public class Account {
 		return name;
 	}
 
-	public void setName(String name) {
+	public boolean setName(String name) {
 		this.name = name;
+		return true;
 	}
 
 	public boolean setPwd(String curPwd, String newPwd, String repeatNewPwd) {
@@ -52,16 +66,18 @@ public class Account {
 		return interestType;
 	}
 
-	public void setInterestType(BigDecimal interestType) {
+	public boolean setInterestType(BigDecimal interestType) {
 		this.interestType = interestType;
+		return true;
 	}
 
 	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void addBalance(BigDecimal amount) {
+	public boolean addBalance(BigDecimal amount) {
 		balance = balance.add(amount);
+		return true;
 	}
 
 	public boolean removeBalance(BigDecimal amount) {
