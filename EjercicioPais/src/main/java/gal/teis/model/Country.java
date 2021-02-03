@@ -1,7 +1,12 @@
 package gal.teis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Country {
 
+	public static final List<Country> countryList = new ArrayList<>();
+	
 	private String name;
 	private int population;
 	private String capital;

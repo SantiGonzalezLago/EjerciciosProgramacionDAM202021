@@ -1,8 +1,6 @@
 package gal.teis.app;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 
 import gal.chanchi.scanner.KeyboardScanner;
 import gal.teis.menu.Menu;
@@ -15,7 +13,6 @@ public class App {
 	private static Menu mainMenu = new Menu("Crear país", "Ver paises");
 	private static Menu creationMenu = new Menu("Con nombre", "Con nombre y capital",
 			"Con nombre, capital y sistema de gobierno");
-	private static List<Country> countryList = new ArrayList<>();
 
 	public static void main(String[] args) {
 		int option;
@@ -109,12 +106,12 @@ public class App {
 		} else {
 			newCountry = new Country(name);
 		}
-		countryList.add(newCountry);
+		Country.countryList.add(newCountry);
 		System.out.println("Operación completada con éxito");
 	}
 
 	private static void listCountries() {
-		for (Country c : countryList) {
+		for (Country c : Country.countryList) {
 			System.out.println(c);
 		}
 	}
