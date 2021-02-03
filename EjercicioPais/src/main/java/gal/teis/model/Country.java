@@ -78,14 +78,7 @@ public class Country {
 		}
 		if (governmentSystem != null) {
 			sb.append(", sistema de gobierno: ");
-			switch (governmentSystem) {
-			case MONARCHY:
-				sb.append("monarquía");
-				break;
-			case REPUBLIC:
-				sb.append("república");
-				break;
-			}
+			sb.append(governmentSystem.toString());
 		}
 		return sb.toString();
 	}
