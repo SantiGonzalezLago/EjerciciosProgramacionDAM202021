@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 
+@SuppressWarnings("serial")
 public class CreateDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

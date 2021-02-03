@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class ListDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
