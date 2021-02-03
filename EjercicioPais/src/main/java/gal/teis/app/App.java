@@ -7,6 +7,8 @@ import gal.teis.menu.Menu;
 import gal.teis.model.Country;
 import gal.teis.model.GovernmentSystem;
 
+//Inicia desde aquí para acceder a la interfaz de comandos,
+//o desde gal.teis.gui.MainWindow para acceder a la interfaz gráfica
 public class App {
 
 	private static KeyboardScanner sc = new KeyboardScanner();

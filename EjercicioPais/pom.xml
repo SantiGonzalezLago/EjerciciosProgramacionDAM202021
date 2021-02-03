@@ -64,7 +64,7 @@
 		  <configuration>
 		    <archive>
 			  <manifest>
-				<mainClass>gal.teis.app.App</mainClass>
+				<mainClass>gal.teis.gui.MainWindow</mainClass>
 			  </manifest>
 			</archive>
 		  </configuration>
