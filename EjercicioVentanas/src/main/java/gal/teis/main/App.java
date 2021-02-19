@@ -21,23 +21,12 @@ public class App {
 			System.out.println("5. Salir");
 			option = DataControl.nextInt(sc);
 			switch (option) {
-			case 1:
-				craftWindows();
-				break;
-			case 2:
-				sellWindows();
-				break;
-			case 3:
-				printStock();
-				break;
-			case 4:
-				printTotalSold();
-				break;
-			case 5:
-				System.out.println("Adios");
-				break;
-			default:
-				System.out.println("Opción no válida");
+			case 1 -> craftWindows();
+			case 2 -> sellWindows();
+			case 3 -> printStock();
+			case 4 -> printTotalSold();
+			case 5 -> System.out.println("Adios");
+			default -> System.out.println("Opción no válida");
 			}
 			System.out.println();
 		}
