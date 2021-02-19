@@ -94,14 +94,15 @@ public class App {
 				System.out.println("El valor debe ser mayor que 0");
 			}
 		} while (amount <= 0);
+		Color color = Color.chooseColor(sc);
 		// Con el operador &&, la parte de la derecha solo se ejecuta si la parte izquierda es true,
 		// así que solo se intentará realizar la venta si el tipo es correcto.
-		if (type == 'A' && WindowA.sellWindows(amount)) {
-			System.out.println("Se han vendido " + amount + " ventanas del tipo A");
+		if (type == 'A' && WindowA.sellWindows(amount, color)) {
+			System.out.println("Se han vendido " + amount + " ventanas " + color + " del tipo A");
 			System.out.println("Precio unitario: " +  WindowA.getPrice() + "€");
 			System.out.println("Precio total: " +  WindowA.getPrice() * amount + "€");
-		} else if (type == 'B' && WindowB.sellWindows(amount)) {
-			System.out.println("Se han vendido " + amount + " ventanas del tipo B");
+		} else if (type == 'B' && WindowB.sellWindows(amount, color)) {
+			System.out.println("Se han vendido " + amount + " ventanas " + color + " del tipo B");
 			System.out.println("Precio unitario: " +  WindowB.getPrice() + "€") ;
 			System.out.println("Precio total: " +  WindowB.getPrice() * amount + "€");
 		} else {
@@ -111,8 +112,12 @@ public class App {
 
 	private static void printStock() {
 		System.out.println("Stock disponible: ");
-		System.out.println("Tipo A: " + WindowA.getStock());
-		System.out.println("Tipo B: " + WindowB.getStock());
+		for (Color color : Color.values()) { 
+			System.out.println("Tipo A, " + color + ": " + WindowA.getStock(color));
+		}
+		for (Color color : Color.values()) { 
+			System.out.println("Tipo B, " + color + ": " + WindowB.getStock(color));
+		}
 	}
 
 	private static void printTotalSold() {

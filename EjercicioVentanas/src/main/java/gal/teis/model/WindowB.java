@@ -1,8 +1,19 @@
 package gal.teis.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class WindowB {
 
-	private static int stock;
+	private static HashMap<Color, ArrayList<WindowB>> stock = new HashMap<>();
+
+	//Esto es un inicializador estático, se ejecuta la primera vez que se carga la clase
+	static {
+		for (Color color : Color.values()) { 
+			stock.put(color, new ArrayList<>());
+		}
+	}
+	
 	private static int totalSold;
 	private static double price;
 
@@ -14,8 +25,8 @@ public class WindowB {
 		return price;
 	}
 
-	public static int getStock() {
-		return stock;
+	public static int getStock(Color color) {
+		return stock.get(color).size();
 	}
 
 	public static int getTotalSold() {
@@ -26,17 +37,19 @@ public class WindowB {
 
 	public WindowB(Color color) {
 		this.color = color;
-		stock++;
+		stock.get(color).add(this);
 	}
 
 	public Color getColor() {
 		return color;
 	}
 
-	public static boolean sellWindows(int amount) {
+	public static boolean sellWindows(int amount, Color color) {
 		boolean success = false;
-		if (stock >= amount) {
-			stock -= amount;
+		if (getStock(color) >= amount) {
+			for (int i = 0; i< amount; i++) {
+				stock.get(color).remove(0);
+			}
 			totalSold += amount;
 			success = true;
 		}
