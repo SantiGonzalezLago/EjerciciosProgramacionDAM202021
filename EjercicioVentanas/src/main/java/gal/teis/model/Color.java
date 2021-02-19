@@ -5,18 +5,14 @@ import java.util.Scanner;
 import gal.teis.main.DataControl;
 
 public enum Color {
-	BLACK("Negro"),
-	WHITE("Blanco"),
-	SILVER("Plateado"),
-	BLUE("Azul"),
-	YELLOW("Amarillo");
+	BLACK("Negro"), WHITE("Blanco"), SILVER("Plateado"), BLUE("Azul"), YELLOW("Amarillo");
 
 	private String localizedName;
-	
-	private Color (String localizedName) {
+
+	private Color(String localizedName) {
 		this.localizedName = localizedName;
 	}
-	
+
 	@Override
 	public String toString() {
 		return localizedName;
@@ -38,11 +34,11 @@ public enum Color {
 			case 3 -> SILVER;
 			case 4 -> BLUE;
 			case 5 -> YELLOW;
-			default -> null;
-			};
-			if (chosenColor == null) {
+			default -> {
 				System.out.println("Opción no válida");
+				yield null;
 			}
+			};
 		}
 		return chosenColor;
 	}
