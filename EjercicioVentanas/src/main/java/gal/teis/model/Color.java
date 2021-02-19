@@ -32,23 +32,15 @@ public enum Color {
 		System.out.println("5. " + YELLOW);
 		while (chosenColor == null) {
 			int option = DataControl.nextInt(sc);
-			switch (option) {
-			case 1:
-				chosenColor = BLACK;
-				break;
-			case 2:
-				chosenColor = WHITE;
-				break;
-			case 3:
-				chosenColor = SILVER;
-				break;
-			case 4:
-				chosenColor = BLUE;
-				break;
-			case 5:
-				chosenColor = YELLOW;
-				break;
-			default:
+			chosenColor = switch (option) {
+			case 1 -> BLACK;
+			case 2 -> WHITE;
+			case 3 -> SILVER;
+			case 4 -> BLUE;
+			case 5 -> YELLOW;
+			default -> null;
+			};
+			if (chosenColor == null) {
 				System.out.println("Opción no válida");
 			}
 		}
