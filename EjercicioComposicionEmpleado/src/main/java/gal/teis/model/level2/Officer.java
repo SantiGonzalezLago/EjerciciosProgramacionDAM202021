@@ -1,4 +1,6 @@
-package gal.teis.model;
+package gal.teis.model.level2;
+
+import gal.teis.model.level1.Operator;
 
 public class Officer extends Operator {
 

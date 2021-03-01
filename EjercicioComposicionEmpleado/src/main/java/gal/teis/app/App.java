@@ -1,6 +1,8 @@
 package gal.teis.app;
 
-import gal.teis.model.*;
+import gal.teis.model.level0.Employee;
+import gal.teis.model.level1.*;
+import gal.teis.model.level2.*;
 
 public class App {
 	public static void main(String[] args) {

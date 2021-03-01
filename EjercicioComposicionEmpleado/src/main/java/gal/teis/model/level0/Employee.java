@@ -1,4 +1,4 @@
-package gal.teis.model;
+package gal.teis.model.level0;
 
 public class Employee {
 	private String name;

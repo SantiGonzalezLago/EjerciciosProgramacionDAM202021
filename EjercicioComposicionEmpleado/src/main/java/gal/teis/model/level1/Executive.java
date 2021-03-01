@@ -1,4 +1,6 @@
-package gal.teis.model;
+package gal.teis.model.level1;
+
+import gal.teis.model.level0.Employee;
 
 public class Executive extends Employee {
 
