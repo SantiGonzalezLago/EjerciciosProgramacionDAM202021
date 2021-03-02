@@ -6,5 +6,6 @@ public class Coche extends Vehiculo {
 	public void printName() {
 		System.out.println(nombre);
 		System.out.println(super.nombre);
+		System.out.println(((Transporte)this).nombre);
 	}
 }
