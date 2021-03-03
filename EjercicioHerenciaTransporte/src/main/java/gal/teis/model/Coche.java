@@ -8,4 +8,9 @@ public class Coche extends Vehiculo {
 		System.out.println(super.nombre);
 		System.out.println(((Transporte)this).nombre);
 	}
+
+	@Override
+	public void acelerar() {
+		System.out.println("Acelerando el coche");
+	}
 }
