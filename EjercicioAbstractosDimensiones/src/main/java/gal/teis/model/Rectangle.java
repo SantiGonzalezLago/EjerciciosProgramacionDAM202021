@@ -12,6 +12,26 @@ public class Rectangle extends GeometricFigure {
 		this.height = height;
 	}
 
+	public double getBase() {
+		return base;
+	}
+
+	public void setBase(double base) {
+		if (base <= 0.0)
+			throw new IllegalArgumentException(NEGATIVE_ERROR_MSG);
+		this.base = base;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		if (height <= 0.0)
+			throw new IllegalArgumentException(NEGATIVE_ERROR_MSG);
+		this.height = height;
+	}
+
 	@Override
 	public double getArea() {
 		return base * height;

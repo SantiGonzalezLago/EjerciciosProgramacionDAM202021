@@ -8,9 +8,31 @@ public class Rhombus extends GeometricFigure {
 	public Rhombus(double side, double diagonal) {
 		if (side <= 0.0 || diagonal <= 0.0)
 			throw new IllegalArgumentException(NEGATIVE_ERROR_MSG);
-		if (2.0 * side >= diagonal)
+		if (2.0 * side <= diagonal)
 			throw new IllegalArgumentException("diagonal must be lower than twice the side");
 		this.side = side;
+		this.diagonal = diagonal;
+	}
+
+	public double getSide() {
+		return side;
+	}
+
+	public void setSide(double side) {
+		if (side <= 0.0)
+			throw new IllegalArgumentException(NEGATIVE_ERROR_MSG);
+		this.side = side;
+	}
+
+	public double getDiagonal() {
+		return diagonal;
+	}
+
+	public void setDiagonal(double diagonal) {
+		if (diagonal <= 0.0)
+			throw new IllegalArgumentException(NEGATIVE_ERROR_MSG);
+		if (2.0 * side <= diagonal)
+			throw new IllegalArgumentException("diagonal must be lower than twice the side");
 		this.diagonal = diagonal;
 	}
 
