@@ -3,7 +3,7 @@ package gal.teis.model;
 public abstract class Vehiculo {
 	protected String id;
 	protected int tiempo;
-	
+
 	public Vehiculo(String id) {
 		this.id = id;
 		tiempo = 0;

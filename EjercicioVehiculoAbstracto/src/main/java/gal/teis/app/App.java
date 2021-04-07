@@ -19,7 +19,7 @@ public class App {
 
 		System.out.printf("¿Cliente (%C) o abonado (%C)?%n", CLIENTE, ABONADO);
 		tipoCliente = introducirTipo();
-		System.out.println("¿Cuánto tiempo (en horas) ha tenido el vehículo?");
+		System.out.println("¿Cuánto tiempo (en días) ha tenido el vehículo?");
 		tiempo = introducirTiempo();
 
 		v = switch (tipoCliente) {
@@ -65,7 +65,7 @@ public class App {
 			} finally {
 				sc.nextLine();
 			}
-			
+
 		}
 		return returnValue;
 	}
