@@ -1,6 +1,7 @@
 package gal.teis.app;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import gal.teis.model.*;
@@ -16,19 +17,32 @@ public class App {
 		Vehiculo v;
 		char tipoCliente;
 		int tiempo;
+		String codigoDescuento = null;
+		double importe;
 
 		System.out.printf("¿Cliente (%C) o abonado (%C)?%n", CLIENTE, ABONADO);
 		tipoCliente = introducirTipo();
 		System.out.println("¿Cuánto tiempo (en días) ha tenido el vehículo?");
 		tiempo = introducirTiempo();
 
+		if (tipoCliente == ABONADO) {
+			System.out.println("Introduzca el código de descuento (déjelo en blanco si no tiene)");
+			codigoDescuento = sc.nextLine();
+		}
+
 		v = switch (tipoCliente) {
 		case CLIENTE -> new VehiculoCliente("0001");
 		case ABONADO -> new VehiculoAbonado("0001");
 		default -> null;
 		};
+		v.setTiempo(tiempo);
 
-		System.out.printf("El importe a abonar es de %.2f€%n", v.factura(tiempo));
+		if (v instanceof VehiculoAbonado && Objects.nonNull(codigoDescuento) && codigoDescuento.length() > 0) {
+			importe = ((VehiculoAbonado) v).factura(codigoDescuento);
+		} else {
+			importe = v.factura();
+		}
+		System.out.printf("El importe a abonar es de %.2f€%n", importe);
 	}
 
 	public static char introducirTipo() {

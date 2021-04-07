@@ -11,4 +11,8 @@ public class VehiculoAbonado extends Vehiculo {
 		return tiempo * 200.0;
 	}
 
+	public double factura(String codigo) {
+		return 0.97 * factura();
+	}
+
 }

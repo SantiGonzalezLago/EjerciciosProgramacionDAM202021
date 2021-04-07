@@ -9,9 +9,16 @@ public abstract class Vehiculo {
 		tiempo = 0;
 	}
 
-	public double factura(int tiempo) {
+	public String getId() {
+		return id;
+	}
+
+	public int getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(int tiempo) {
 		this.tiempo = tiempo;
-		return factura();
 	}
 
 	abstract public double factura();
