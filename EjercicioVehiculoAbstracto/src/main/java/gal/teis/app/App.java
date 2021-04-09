@@ -72,10 +72,10 @@ public class App {
 				if (returnValue > 0) {
 					success = true;
 				} else {
-					System.out.println("El número de horas debe ser positivo.");
+					System.out.println("El número de días debe ser positivo.");
 				}
 			} catch (InputMismatchException ex) {
-				System.out.println("Introduzca el número de horas, por favor.");
+				System.out.println("Introduzca el número de días, por favor.");
 			} finally {
 				sc.nextLine();
 			}
