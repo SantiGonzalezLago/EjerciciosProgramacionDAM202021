@@ -5,6 +5,8 @@ public class Rhombus implements CalculablePerimeter {
 	private float side;
 
 	public Rhombus(float side) {
+		if (side <= 0)
+			throw new IllegalArgumentException("side must be positive");
 		this.side = side;
 	}
 

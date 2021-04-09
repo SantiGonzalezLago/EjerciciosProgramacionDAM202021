@@ -6,6 +6,8 @@ public class Rectangle implements CalculablePerimeter, CalculableArea {
 	private float height;
 
 	public Rectangle(float base, float height) {
+		if (base <= 0 || height <= 0)
+			throw new IllegalArgumentException("base and height must be positive");
 		this.base = base;
 		this.height = height;
 	}
