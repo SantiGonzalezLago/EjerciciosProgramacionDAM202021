@@ -34,7 +34,11 @@ public abstract class Vaccine {
 		this.recommendedPrize = recommendedPrize;
 	}
 
-	public abstract void setTestPhasesResult(boolean phase1Complete, boolean phase2Complete, boolean phase3Complete);
+	abstract public void setTestPhaseResult(byte phaseNumber, boolean complete);
+
+	abstract public boolean isAuthorized();
+
+	abstract public boolean isUnauthorized();
 
 	public final static boolean isCodeValid(String code) {
 		// El código tendrá el siguiente formato:

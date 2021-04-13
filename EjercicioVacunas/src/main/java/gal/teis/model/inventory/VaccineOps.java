@@ -7,8 +7,16 @@ import gal.teis.model.vaccines.Vaccine;
 
 public final class VaccineOps {
 
+	public static final byte PENDING = 0;
+	public static final byte AUTHORIZED = 1;
+	public static final byte UNAUTHORIZED = 2;
+
 	private static ArrayList<Vaccine> warehouse = new ArrayList<>();
 	private static int total = 0;
+
+	public int getTotal() {
+		return total;
+	}
 
 	public static boolean add(Vaccine vaccine) {
 		boolean elementExists = false;
@@ -35,20 +43,84 @@ public final class VaccineOps {
 		return success;
 	}
 
-	//	TODO
-	//	• Método que permitirá introducir el resultado de las tres fases de prueba
-	//	necesarias para autorizar una vacuna.	
-	//	• Método que muestra el listado completo de vacunas con la información de los
-	//	atributos comunes a todas las vacunas.
-	//	• Método que muestre el listado de todas las vacunas con su nombre, código y
-	//	si están aprobadas o no.
-	//	• Método que muestre el listado de las vacunas autorizadas (nombre y código).
-	//	• Método que muestre el listado de las vacunas no autorizadas (nombre y
-	//	código).
-	//	• Método que muestre el listado de las vacunas pendientes de autorización
-	//	(nombre y código).
-	//	• Método que busque una vacuna en función de su código y nos informe de si
-	//	está autorizada, rechazada o pendiente de autorización
+	public static void insertTestPhasesResult(String code, byte phaseNumber, boolean phaseCompleted) {
+		Vaccine vaccine = getVaccine(code);
+		if (Objects.isNull(vaccine))
+			throw new IllegalArgumentException("Esa vacuna no está en la base de datos");
+		vaccine.setTestPhaseResult(phaseNumber, phaseCompleted);
+	}
+
+	public static void printVaccines() {
+		// TODO ¿Atributos comunes a todas las vacunas?
+		for (Vaccine v : warehouse) {
+			System.out.println(v);
+		}
+	}
+
+	public static void printVaccinesCodeName() {
+		for (Vaccine v : warehouse) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Código: ");
+			sb.append(v.getCode());
+			sb.append(", nombre: ");
+			sb.append(v.getName());
+			sb.append(", aprobada: ");
+			sb.append(v.isAuthorized() ? "SÍ" : "NO");
+			System.out.println(sb.toString());
+		}
+	}
+
+	public static void printAuthorizedVaccinesCodeName() {
+		for (Vaccine v : warehouse) {
+			if (v.isAuthorized()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Código: ");
+				sb.append(v.getCode());
+				sb.append(", nombre: ");
+				sb.append(v.getName());
+				System.out.println(sb.toString());
+			}
+		}
+	}
+
+	public static void printUnauthorizedVaccinesCodeName() {
+		for (Vaccine v : warehouse) {
+			if (v.isUnauthorized()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Código: ");
+				sb.append(v.getCode());
+				sb.append(", nombre: ");
+				sb.append(v.getName());
+				System.out.println(sb.toString());
+			}
+		}
+	}
+
+	public static void printPendingVaccinesCodeName() {
+		for (Vaccine v : warehouse) {
+			if (!v.isAuthorized() && !v.isUnauthorized()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Código: ");
+				sb.append(v.getCode());
+				sb.append(", nombre: ");
+				sb.append(v.getName());
+				System.out.println(sb.toString());
+			}
+		}
+	}
+
+	public static byte isVaccineAuthorized(String code) {
+		Vaccine vaccine = getVaccine(code);
+		if (Objects.isNull(vaccine))
+			throw new IllegalArgumentException("Esa vacuna no está en la base de datos");
+		byte result = PENDING;
+		if (vaccine.isAuthorized()) {
+			result = AUTHORIZED;
+		} else if (vaccine.isUnauthorized()) {
+			result = UNAUTHORIZED;
+		}
+		return result;
+	}
 
 	private static Vaccine getVaccine(String code) {
 		Vaccine vaccine = null;

@@ -2,7 +2,7 @@ package gal.teis.model.vaccines;
 
 public interface IAuthorizable {
 
-	public void authorize();
+	public boolean authorize();
 
-	public void reject();
+	public boolean reject();
 }
