@@ -2,7 +2,7 @@ package gal.teis.model.vaccines;
 
 import gal.teis.model.inventory.VaccineOps;
 
-public class ModernaVaccine extends Vaccine implements IAuthorizable {
+public final class ModernaVaccine extends Vaccine implements IAuthorizable {
 
 	private static final String NAME = "mRNA-1273";
 	private static final String ACTIVE_INGREDIENT = "mRNA";
@@ -48,10 +48,10 @@ public class ModernaVaccine extends Vaccine implements IAuthorizable {
 			phase1Complete = phaseComplete;
 			break;
 		case 2:
-			phase1Complete = phaseComplete;
+			phase2Complete = phaseComplete;
 			break;
 		case 3:
-			phase1Complete = phaseComplete;
+			phase3Complete = phaseComplete;
 			break;
 		default:
 			throw new IllegalArgumentException("La fase debe ser 1, 2 o 3");

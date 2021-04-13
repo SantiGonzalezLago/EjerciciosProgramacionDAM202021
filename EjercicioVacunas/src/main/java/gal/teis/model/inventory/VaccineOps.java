@@ -43,7 +43,7 @@ public final class VaccineOps {
 		return success;
 	}
 
-	public static void insertTestPhasesResult(String code, byte phaseNumber, boolean phaseCompleted) {
+	public static void insertTestPhaseResult(String code, byte phaseNumber, boolean phaseCompleted) {
 		Vaccine vaccine = getVaccine(code);
 		if (Objects.isNull(vaccine))
 			throw new IllegalArgumentException("Esa vacuna no está en la base de datos");
@@ -122,7 +122,7 @@ public final class VaccineOps {
 		return result;
 	}
 
-	private static Vaccine getVaccine(String code) {
+	public static Vaccine getVaccine(String code) {
 		Vaccine vaccine = null;
 		int idx = 0;
 		while (idx < warehouse.size() && Objects.isNull(vaccine)) {
