@@ -45,11 +45,12 @@ public abstract class Vaccine {
 		//   Comenzará por la letra V seguida de una vocal en mayúsculas.
 		//   A continuación, tres o cuatro letras minúsculas.
 		//   Finaliza, o con dos números del 4 al 7, o bien con el número 8.
-		return code.matches("^V[a-zA-Z]{3,4}([0-9]{2}|8)$");
+		return code.matches("^V[AEIOU][a-z]{3,4}([0-9]{2}|8)$");
 		// Explicación de la expresión regular:
 		//   ^ indica el principio de la cadena, $ indica el final
 		//   V indica que debe encontrar una V
-		//   [a-zA-Z]{3,4} indica que debe encontrar un caracter entre a y z o entre A y Z, y que debe hacerlo entre 3 y 4 veces
+		//   [AEIOU] indica que debe encontrar uno de esos caracteres
+		//   [a-z]{3,4} indica que debe encontrar un caracter entre a y z, y que debe hacerlo entre 3 y 4 veces
 		//   ([0-9]{2}|8) indica que debe encontrar un caracter entre 0 y 9, 2 veces, o bien un 8, los parentesis indican el ambito del or
 	}
 
@@ -86,4 +87,5 @@ public abstract class Vaccine {
 	public boolean equals(Object o) {
 		return (o instanceof Vaccine && ( this == o || this.code == ((Vaccine) o).code));
 	}
+	
 }
