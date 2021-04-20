@@ -1,19 +1,19 @@
 package gal.teis.model.vaccines;
 
-public abstract class Vaccine {
+public abstract class Vaccine extends VaccineAuthorization {
 
 	private String code;
 	private String name;
-	private String activeIngredient;
+	private String activePrinciple;
 	private String pharmaceutical;
 	private float recommendedPrize;
 
-	public Vaccine(String code, String name, String activeIngredient, String pharmaceutical, float recommendedPrize) {
+	public Vaccine(String code, String name, String activePrinciple, String pharmaceutical, float recommendedPrize) {
 		if (!isCodeValid(code))
 			throw new IllegalArgumentException("El código tiene un formato erróneo");
 		this.code = code;
 		this.name = name;
-		this.activeIngredient = activeIngredient;
+		this.activePrinciple = activePrinciple;
 		this.pharmaceutical = pharmaceutical;
 		this.recommendedPrize = recommendedPrize;
 	}
@@ -34,29 +34,25 @@ public abstract class Vaccine {
 		this.recommendedPrize = recommendedPrize;
 	}
 
-	abstract public void setTestPhaseResult(byte phaseNumber, boolean complete);
-
-	abstract public boolean isAuthorized();
-
-	abstract public boolean isUnauthorized();
-
 	public final static boolean isCodeValid(String code) {
 		// El código tendrá el siguiente formato:
-		//   Comenzará por la letra V seguida de una vocal en mayúsculas.
-		//   A continuación, tres o cuatro letras minúsculas.
-		//   Finaliza, o con dos números del 4 al 7, o bien con el número 8.
+		// Comenzará por la letra V seguida de una vocal en mayúsculas.
+		// A continuación, tres o cuatro letras minúsculas.
+		// Finaliza, o con dos números del 4 al 7, o bien con el número 8.
 		return code.matches("^V[AEIOU][a-z]{3,4}([0-9]{2}|8)$");
 		// Explicación de la expresión regular:
-		//   ^ indica el principio de la cadena, $ indica el final
-		//   V indica que debe encontrar una V
-		//   [AEIOU] indica que debe encontrar uno de esos caracteres
-		//   [a-z]{3,4} indica que debe encontrar un caracter entre a y z, y que debe hacerlo entre 3 y 4 veces
-		//   ([0-9]{2}|8) indica que debe encontrar un caracter entre 0 y 9, 2 veces, o bien un 8, los parentesis indican el ambito del or
+		// ^ indica el principio de la cadena, $ indica el final
+		// V indica que debe encontrar una V
+		// [AEIOU] indica que debe encontrar uno de esos caracteres
+		// [a-z]{3,4} indica que debe encontrar un caracter entre a y z, y que debe
+		// hacerlo entre 3 y 4 veces
+		// ([0-9]{2}|8) indica que debe encontrar un caracter entre 0 y 9, 2 veces, o
+		// bien un 8, los parentesis indican el ambito del or
 	}
 
 	@Override
 	public String toString() {
-		//TODO Comprobar si la tabulación es correcta
+		// TODO Comprobar si la tabulación es correcta
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("Datos de la vacuna:\n");
@@ -70,7 +66,7 @@ public abstract class Vaccine {
 		sb.append("\n");
 
 		sb.append("\tP. activo\t\t");
-		sb.append(activeIngredient);
+		sb.append(activePrinciple);
 		sb.append("\n");
 
 		sb.append("\tFarmacéutica\t");
@@ -79,13 +75,23 @@ public abstract class Vaccine {
 
 		sb.append("\tPrecio\t\t\t");
 		sb.append(String.format("%.2f€", recommendedPrize));
+		sb.append("\n");
+
+		sb.append("\tAutorización\t");
+		if (isAuthorized()) {
+			sb.append("Autorizada");
+		} else if (isUnauthorized()) {
+			sb.append("No autorizada");
+		} else {
+			sb.append("Pendiente de autorización");
+		}
 
 		return sb.toString();
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		return (o instanceof Vaccine && ( this == o || this.code == ((Vaccine) o).code));
+		return (o instanceof Vaccine && (this == o || this.code == ((Vaccine) o).code));
 	}
-	
+
 }

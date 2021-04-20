@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.Scanner;
 
-import gal.teis.model.inventory.VaccineOps;
+import gal.teis.model.inventory.VaccineWarehouse;
 import gal.teis.model.vaccines.*;
 
 public class App {
@@ -12,14 +12,17 @@ public class App {
 	private static Scanner sc;
 	private static NumericScanner scNum;
 
-	private static final String[] MENU_OPTIONS = { "Buscar vacuna", // 1
-			"Agregar vacuna", // 2
-			"Eliminar vacuna", // 3
-			"Introducir resultado de las fases de una vacuna", // 4
-			"Ver vacunas autorizadas", // 5
-			"Ver vacunas no autorizadas", // 6
-			"Ver vacunas pendientes de autorizar o rechazar", // 7
-			"Salir" // 8
+	private static final String[] MENU_OPTIONS = { "Listar todas las vacunas", // 1
+			"Buscar vacuna", // 2
+			"Agregar vacuna", // 3
+			"Eliminar vacuna", // 4
+			"Introducir resultado de las fases de una vacuna", // 5
+			"Autorizar/rechazar vacuna", // 6
+			"Ver vacunas autorizadas", // 7
+			"Ver vacunas no autorizadas", // 8
+			"Ver vacunas pendientes de autorizar o rechazar", // 9
+			"Ver la última fase investigada de cada vacuna almacenada", // 10
+			"Salir" // 11
 	};
 
 	public static void main(String[] args) {
@@ -44,27 +47,30 @@ public class App {
 
 		switch (readOption()) {
 		case 1:
-			findVaccine();
+			listAllVaccines();
 			break;
 		case 2:
-			addVaccine();
+			findVaccine();
 			break;
 		case 3:
-			removeVaccine();
+			addVaccine();
 			break;
 		case 4:
-			addTestResults();
+			removeVaccine();
 			break;
 		case 5:
-			listAuthorizedVaccines();
-			break;
-		case 6:
-			listUnauthorizedVaccines();
+			addTestResults();
 			break;
 		case 7:
-			listPendingVaccines();
+			listAuthorizedVaccines();
 			break;
 		case 8:
+			listUnauthorizedVaccines();
+			break;
+		case 9:
+			listPendingVaccines();
+			break;
+		case 11:
 			repeatMenu = false;
 		}
 
@@ -127,7 +133,7 @@ public class App {
 	private static void findVaccine() {
 		System.out.println("Introduzca el código de la vacuna:");
 		String code = readCode();
-		Vaccine vaccine = VaccineOps.getVaccine(code);
+		Vaccine vaccine = VaccineWarehouse.getVaccine(code);
 		if (Objects.nonNull(vaccine)) {
 			System.out.println(vaccine);
 		} else {
@@ -141,7 +147,7 @@ public class App {
 			System.out.println("Introduzca el código:");
 			String code = readCode();
 			Vaccine vaccine = (Vaccine) vaccineType.getConstructor(String.class).newInstance(code);
-			if (VaccineOps.add(vaccine)) {
+			if (VaccineWarehouse.add(vaccine)) {
 				System.out.println("Se ha añadido la vacuna.");
 			} else {
 				System.out.println("No se ha podido añadir la vacuna.");
@@ -156,7 +162,7 @@ public class App {
 	private static void removeVaccine() {
 		System.out.println("Introduzca el código de la vacuna:");
 		String code = readCode();
-		if (VaccineOps.remove(code)) {
+		if (VaccineWarehouse.remove(code)) {
 			System.out.println("Se ha eliminado la vacuna.");
 		} else {
 			System.out.println("No existe una vacuna con ese código en el almacén.");
@@ -171,13 +177,13 @@ public class App {
 		System.out.println("Si quiere introducir varias, escriba los números juntos (por ejemplo, 123)");
 		for (int i = 1; i <= 3; i++) {
 			if (code.contains("" + i)) {
-				results[i-1] = readResult("Introduzca el resultado de la fase " + i);
+				results[i - 1] = readResult("Introduzca el resultado de la fase " + i);
 			}
 		}
 		try {
 			for (byte i = 1; i <= 3; i++) {
 				if (code.contains("" + i)) {
-					VaccineOps.insertTestPhaseResult(code, i, results[i-1]);
+					VaccineWarehouse.insertTestPhaseResult(code, i, results[i - 1]);
 				}
 			}
 		} catch (IllegalArgumentException ex) {
@@ -209,19 +215,24 @@ public class App {
 
 	}
 
+	private static void listAllVaccines() {
+		System.out.println("Todas las vacunas:");
+		VaccineWarehouse.printVaccines();
+	}
+
 	private static void listAuthorizedVaccines() {
 		System.out.println("Vacunas autorizadas:");
-		VaccineOps.printAuthorizedVaccinesCodeName();
+		VaccineWarehouse.printAuthorizedVaccines();
 	}
 
 	private static void listUnauthorizedVaccines() {
 		System.out.println("Vacunas no autorizadas:");
-		VaccineOps.printUnauthorizedVaccinesCodeName();
+		VaccineWarehouse.printUnauthorizedVaccines();
 	}
 
 	private static void listPendingVaccines() {
 		System.out.println("Vacunas pendientes:");
-		VaccineOps.printPendingVaccinesCodeName();
+		VaccineWarehouse.printPendingVaccines();
 	}
 
 }
