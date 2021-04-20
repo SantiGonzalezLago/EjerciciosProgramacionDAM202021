@@ -52,38 +52,36 @@ public abstract class Vaccine extends VaccineAuthorization {
 
 	@Override
 	public String toString() {
-		// TODO Comprobar si la tabulación es correcta
+		// NOTA: La tabulación es correcta con un tamaño de tabulador de 4
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("Datos de la vacuna:\n");
 
-		sb.append("\tCódigo\t\t");
+		sb.append("\tCódigo\t\t\t");
 		sb.append(code);
 		sb.append("\n");
 
-		sb.append("\tNombre\t\t");
+		sb.append("\tNombre\t\t\t");
 		sb.append(name);
 		sb.append("\n");
 
-		sb.append("\tP. activo\t");
-		sb.append(activePrinciple);
-		sb.append("\n");
-
-		sb.append("\tFarmacéutica\t");
-		sb.append(pharmaceutical);
-		sb.append("\n");
-
-		sb.append("\tPrecio\t\t");
-		sb.append(String.format("%.2f€", recommendedPrize));
-		sb.append("\n");
-
-		sb.append("\tAutorización\t");
 		if (isAuthorized()) {
-			sb.append("Autorizada");
-		} else if (isUnauthorized()) {
-			sb.append("No autorizada");
+			sb.append("\tP. activo\t\t");
+			sb.append(activePrinciple);
+			sb.append("\n");
+
+			sb.append("\tFarmacéutica\t");
+			sb.append(pharmaceutical);
+			sb.append("\n");
+
+			sb.append("\tPrecio\t\t\t");
+			sb.append(String.format("%.2f€", recommendedPrize));
 		} else {
-			sb.append("Pendiente de autorización");
+			if (isUnauthorized()) {
+				sb.append("\tNo autorizada");
+			} else {
+				sb.append("\tPendiente de autorización");
+			}
 		}
 
 		return sb.toString();

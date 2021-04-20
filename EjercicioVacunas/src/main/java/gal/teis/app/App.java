@@ -61,6 +61,9 @@ public class App {
 		case 5:
 			addTestResults();
 			break;
+		case 6:
+			System.out.println("NYI");
+			break;
 		case 7:
 			listAuthorizedVaccines();
 			break;
@@ -69,6 +72,9 @@ public class App {
 			break;
 		case 9:
 			listPendingVaccines();
+			break;
+		case 10:
+			System.out.println("NYI");
 			break;
 		case 11:
 			repeatMenu = false;
