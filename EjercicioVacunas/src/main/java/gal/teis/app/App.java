@@ -172,31 +172,23 @@ public class App {
 	private static void addTestResults() {
 		System.out.println("Introduzca el código de la vacuna:");
 		String code = readCode();
-		boolean[] results = new boolean[3];
+		boolean result;;
 		System.out.println("Introduzca el número de fase a introducir");
-		System.out.println("Si quiere introducir varias, escriba los números juntos (por ejemplo, 123)");
-		for (int i = 1; i <= 3; i++) {
-			if (code.contains("" + i)) {
-				results[i - 1] = readResult("Introduzca el resultado de la fase " + i);
-			}
-		}
+		byte phaseNum = scNum.readByte();
+		result = readResult();
 		try {
-			for (byte i = 1; i <= 3; i++) {
-				if (code.contains("" + i)) {
-					VaccineWarehouse.insertTestPhaseResult(code, i, results[i - 1]);
-				}
-			}
+			VaccineWarehouse.insertTestPhaseResult(code, phaseNum, result);
 		} catch (IllegalArgumentException ex) {
 			System.out.println("No existe una vacuna con ese código en el almacén.");
 		}
 	}
 
-	private static boolean readResult(String msg) {
+	private static boolean readResult() {
 		boolean error;
 		boolean result = false;
 		do {
 			error = false;
-			System.out.println(msg);
+			System.out.println("Introduzca el resultado de la fase");
 			System.out.println("1. Superada");
 			System.out.println("2. Fallida");
 			switch (scNum.readByte()) {

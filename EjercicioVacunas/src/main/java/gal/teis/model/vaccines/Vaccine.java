@@ -57,15 +57,15 @@ public abstract class Vaccine extends VaccineAuthorization {
 
 		sb.append("Datos de la vacuna:\n");
 
-		sb.append("\tCódigo\t\t\t");
+		sb.append("\tCódigo\t\t");
 		sb.append(code);
 		sb.append("\n");
 
-		sb.append("\tNombre\t\t\t");
+		sb.append("\tNombre\t\t");
 		sb.append(name);
 		sb.append("\n");
 
-		sb.append("\tP. activo\t\t");
+		sb.append("\tP. activo\t");
 		sb.append(activePrinciple);
 		sb.append("\n");
 
@@ -73,7 +73,7 @@ public abstract class Vaccine extends VaccineAuthorization {
 		sb.append(pharmaceutical);
 		sb.append("\n");
 
-		sb.append("\tPrecio\t\t\t");
+		sb.append("\tPrecio\t\t");
 		sb.append(String.format("%.2f€", recommendedPrize));
 		sb.append("\n");
 
