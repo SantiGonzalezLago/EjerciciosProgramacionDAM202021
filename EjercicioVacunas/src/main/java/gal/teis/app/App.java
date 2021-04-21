@@ -75,7 +75,7 @@ public class App {
 			listPendingVaccines();
 			break;
 		case 10:
-			System.out.println("NYI");
+			checkLastPhaseOfEachVaccine();
 			break;
 		case 11:
 			repeatMenu = false;
@@ -289,5 +289,9 @@ public class App {
 	private static void listPendingVaccines() {
 		System.out.println("Vacunas pendientes:");
 		VaccineWarehouse.printPendingVaccines();
+	}
+
+	private static void checkLastPhaseOfEachVaccine() {
+		VaccineWarehouse.printLastCompletedPhaseOfEachVaccine();
 	}
 }

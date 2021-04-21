@@ -69,6 +69,16 @@ public final class VaccineWarehouse {
 		}
 	}
 
+	public static void printLastCompletedPhaseOfEachVaccine() {
+		for (Vaccine v : warehouse) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(v.getCode());
+			sb.append(":\tFase ");
+			sb.append(v.getCompletedPhases());
+			System.out.println(sb);
+		}
+	}
+
 	public static Vaccine getVaccine(String code) {
 		Vaccine vaccine = null;
 		int idx = 0;
