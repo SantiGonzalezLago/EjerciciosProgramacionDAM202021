@@ -65,23 +65,19 @@ public abstract class Vaccine extends VaccineAuthorization {
 		sb.append(name);
 		sb.append("\n");
 
-		if (isAuthorized()) {
-			sb.append("\tP. activo\t\t");
-			sb.append(activePrinciple);
-			sb.append("\n");
+		sb.append("\tP. activo\t\t");
+		sb.append(activePrinciple);
+		sb.append("\n");
 
+		if (isAuthorized()) {
 			sb.append("\tFarmacéutica\t");
 			sb.append(pharmaceutical);
 			sb.append("\n");
 
 			sb.append("\tPrecio\t\t\t");
 			sb.append(String.format("%.2f€", recommendedPrize));
-		} else {
-			if (isUnauthorized()) {
-				sb.append("\tNo autorizada");
-			} else {
-				sb.append("\tPendiente de autorización");
-			}
+		} else if (!isUnauthorized()) {
+			sb.append("\tPendiente de autorización");
 		}
 
 		return sb.toString();
