@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import gal.teis.model.vaccines.Vaccine;
-import gal.teis.model.vaccines.VaccineAuthorization;
 
 public final class VaccineWarehouse {
 
@@ -40,17 +39,6 @@ public final class VaccineWarehouse {
 		return success;
 	}
 
-	public static void insertTestPhaseResult(String code, byte phaseNumber, boolean phaseCompleted) {
-		Vaccine vaccine = getVaccine(code);
-		if (Objects.isNull(vaccine))
-			throw new IllegalArgumentException("Esa vacuna no está en la base de datos");
-		try {
-			vaccine.setTestPhaseResult(phaseNumber, phaseCompleted);
-		} catch (IllegalAccessException | IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
 	public static void printVaccines() {
 		for (Vaccine v : warehouse) {
 			System.out.println(v);
@@ -79,19 +67,6 @@ public final class VaccineWarehouse {
 				System.out.println(v);
 			}
 		}
-	}
-
-	public static byte isVaccineAuthorized(String code) {
-		Vaccine vaccine = getVaccine(code);
-		if (Objects.isNull(vaccine))
-			throw new IllegalArgumentException("Esa vacuna no está en la base de datos");
-		byte result = VaccineAuthorization.PENDING;
-		if (vaccine.isAuthorized()) {
-			result = VaccineAuthorization.AUTHORIZED;
-		} else if (vaccine.isUnauthorized()) {
-			result = VaccineAuthorization.UNAUTHORIZED;
-		}
-		return result;
 	}
 
 	public static Vaccine getVaccine(String code) {

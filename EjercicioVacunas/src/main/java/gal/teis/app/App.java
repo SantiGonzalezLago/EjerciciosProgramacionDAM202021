@@ -9,6 +9,7 @@ import gal.teis.model.vaccines.*;
 
 public class App {
 
+	private static final String VACCINE_NO_EXISTS = "No existe una vacuna con ese código en el almacén.";
 	private static Scanner sc;
 	private static NumericScanner scNum;
 
@@ -62,7 +63,7 @@ public class App {
 			addTestResults();
 			break;
 		case 6:
-			System.out.println("NYI");
+			authorizeRejectVaccine();
 			break;
 		case 7:
 			listAuthorizedVaccines();
@@ -143,7 +144,7 @@ public class App {
 		if (Objects.nonNull(vaccine)) {
 			System.out.println(vaccine);
 		} else {
-			System.out.println("No existe una vacuna con ese código en el almacén.");
+			System.out.println(VACCINE_NO_EXISTS);
 		}
 	}
 
@@ -161,7 +162,8 @@ public class App {
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
-			// No debería llegar aquí nunca
+			// No debería llegar aquí nunca, llamo a printStackTrace() por si llegase
+			// durante las pruebas
 		}
 	}
 
@@ -171,21 +173,24 @@ public class App {
 		if (VaccineWarehouse.remove(code)) {
 			System.out.println("Se ha eliminado la vacuna.");
 		} else {
-			System.out.println("No existe una vacuna con ese código en el almacén.");
+			System.out.println(VACCINE_NO_EXISTS);
 		}
 	}
 
 	private static void addTestResults() {
 		System.out.println("Introduzca el código de la vacuna:");
-		String code = readCode();
-		boolean result;;
-		System.out.println("Introduzca el número de fase a introducir");
-		byte phaseNum = scNum.readByte();
-		result = readResult();
-		try {
-			VaccineWarehouse.insertTestPhaseResult(code, phaseNum, result);
-		} catch (IllegalArgumentException ex) {
-			System.out.println("No existe una vacuna con ese código en el almacén.");
+		Vaccine vaccine = VaccineWarehouse.getVaccine(readCode());
+		if (Objects.isNull(vaccine)) {
+			System.out.println(VACCINE_NO_EXISTS);
+		} else {
+			System.out.println("Introduzca el número de fase a introducir");
+			byte phaseNum = scNum.readByte();
+			boolean result = readResult();
+			try {
+				vaccine.setTestPhaseResult(phaseNum, result);
+			} catch (IllegalAccessException | IllegalArgumentException e) {
+				System.out.printf("Error: %s%n", e.getMessage());
+			}
 		}
 	}
 
@@ -210,7 +215,60 @@ public class App {
 			}
 		} while (error);
 		return result;
+	}
 
+	private static void authorizeRejectVaccine() {
+		System.out.println("Introduzca el código de la vacuna:");
+		Vaccine vaccine = VaccineWarehouse.getVaccine(readCode());
+		if (Objects.isNull(vaccine)) {
+			System.out.println(VACCINE_NO_EXISTS);
+		} else if (vaccine.isAuthorized() || vaccine.isUnauthorized()) {
+			System.out.println("Esa vacuna no está pendiente de autorización");
+		} else {
+			byte option = 0;
+			while (option != 1 && option != 2) {
+				System.out.println("¿Desea autorizar o rechazar la vacuna?");
+				System.out.println("1. Autorizar");
+				System.out.println("2. Rechazar");
+				option = scNum.readByte();
+			}
+			boolean success = false;
+			System.out.printf("¿Está seguro de que quiere %s la vacuna %s? (S/N)%n",
+					(option == 1 ? "autorizar" : "rechazar"), vaccine.getCode());
+			if (confirm()) {
+				success = switch (option) {
+				case 1 -> vaccine.authorize();
+				case 2 -> vaccine.reject();
+				default -> false;
+				};
+			}
+			if (success) {
+				System.out.printf("Se ha %s la vacuna%n", (option == 1 ? "autorizado" : "rechazado"));
+			} else {
+				System.out.printf("No se ha %s la vacuna%n", (option == 1 ? "autorizado" : "rechazado"));
+			}
+		}
+	}
+
+	private static boolean confirm() {
+		boolean success = false;
+		boolean yes = false;
+		while (!success) {
+			try {
+				char input = sc.nextLine().toUpperCase().charAt(0);
+				if (input == 'S') {
+					yes = true;
+					success = true;
+				} else if (input == 'N') {
+					yes = false;
+					success = true;
+				} else {
+					System.out.println("Introduzca S o N");
+				}
+			} catch (StringIndexOutOfBoundsException ex) {
+			}
+		}
+		return yes;
 	}
 
 	private static void listAllVaccines() {
@@ -232,5 +290,4 @@ public class App {
 		System.out.println("Vacunas pendientes:");
 		VaccineWarehouse.printPendingVaccines();
 	}
-
 }
