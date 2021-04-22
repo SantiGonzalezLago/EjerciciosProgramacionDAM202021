@@ -29,7 +29,7 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 			}
 		}
 		if (rejection) {
-			authorizationStatus = PENDING;
+			authorizationStatus = UNAUTHORIZED;
 		}
 		return rejection;
 	}

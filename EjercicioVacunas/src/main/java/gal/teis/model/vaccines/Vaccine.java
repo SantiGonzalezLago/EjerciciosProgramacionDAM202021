@@ -67,9 +67,9 @@ public abstract class Vaccine extends VaccineAuthorization {
 
 		sb.append("\tP. activo\t\t");
 		sb.append(activePrinciple);
-		sb.append("\n");
 
 		if (isAuthorized()) {
+			sb.append("\n");
 			sb.append("\tFarmacéutica\t");
 			sb.append(pharmaceutical);
 			sb.append("\n");
@@ -77,6 +77,7 @@ public abstract class Vaccine extends VaccineAuthorization {
 			sb.append("\tPrecio\t\t\t");
 			sb.append(String.format("%.2f€", recommendedPrize));
 		} else if (!isUnauthorized()) {
+			sb.append("\n");
 			sb.append("\tPendiente de autorización");
 		}
 
