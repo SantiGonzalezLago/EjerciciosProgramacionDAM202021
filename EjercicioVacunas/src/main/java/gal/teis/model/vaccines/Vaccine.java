@@ -22,10 +22,6 @@ public abstract class Vaccine extends VaccineAuthorization {
 		return code;
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public float getRecommendedPrize() {
 		return recommendedPrize;
 	}

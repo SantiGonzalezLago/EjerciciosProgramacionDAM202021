@@ -2,6 +2,7 @@ package gal.teis.model.inventory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import gal.teis.model.vaccines.Vaccine;
@@ -44,44 +45,34 @@ public final class VaccineWarehouse {
 		return Arrays.copyOf(warehouse.toArray(new Vaccine[warehouse.size()]), warehouse.size());
 	}
 
-	public static Vaccine[] getAuthorizedVaccines() {
+	public static List<Vaccine> getAuthorizedVaccines() {
 		var authVaccines = new ArrayList<Vaccine>();
 		for (Vaccine v : warehouse) {
 			if (v.isAuthorized()) {
 				authVaccines.add(v);
 			}
 		}
-		return authVaccines.toArray(new Vaccine[authVaccines.size()]);
+		return authVaccines;
 	}
 
-	public static Vaccine[] getUnauthorizedVaccines() {
+	public static List<Vaccine> getUnauthorizedVaccines() {
 		var unauthVaccines = new ArrayList<Vaccine>();
 		for (Vaccine v : warehouse) {
 			if (v.isUnauthorized()) {
 				unauthVaccines.add(v);
 			}
 		}
-		return unauthVaccines.toArray(new Vaccine[unauthVaccines.size()]);
+		return unauthVaccines;
 	}
 
-	public static Vaccine[] getPendingVaccines() {
+	public static List<Vaccine> getPendingVaccines() {
 		var pendingVaccines = new ArrayList<Vaccine>();
 		for (Vaccine v : warehouse) {
 			if (!v.isAuthorized() && !v.isUnauthorized()) {
 				pendingVaccines.add(v);
 			}
 		}
-		return pendingVaccines.toArray(new Vaccine[pendingVaccines.size()]);
-	}
-
-	public static void printLastCompletedPhaseOfEachVaccine() {
-		for (Vaccine v : warehouse) {
-			StringBuilder sb = new StringBuilder();
-			sb.append(v.getCode());
-			sb.append(":\tFase ");
-			sb.append(v.getCompletedPhases());
-			System.out.println(sb);
-		}
+		return pendingVaccines;
 	}
 
 	public static Vaccine getVaccine(String code) {

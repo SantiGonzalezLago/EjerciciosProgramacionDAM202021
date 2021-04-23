@@ -287,8 +287,8 @@ public class App {
 	}
 
 	private static void listAuthorizedVaccines() {
-		Vaccine[] vaccines = VaccineWarehouse.getAuthorizedVaccines();
-		if (vaccines.length == 0) {
+		var vaccines = VaccineWarehouse.getAuthorizedVaccines();
+		if (vaccines.size() == 0) {
 			System.out.println("No hay vacunas autorizadas");
 		} else {
 			System.out.println("Vacunas autorizadas:");
@@ -299,8 +299,8 @@ public class App {
 	}
 
 	private static void listUnauthorizedVaccines() {
-		Vaccine[] vaccines = VaccineWarehouse.getUnauthorizedVaccines();
-		if (vaccines.length == 0) {
+		var vaccines = VaccineWarehouse.getUnauthorizedVaccines();
+		if (vaccines.size() == 0) {
 			System.out.println("No hay vacunas no autorizadas");
 		} else {
 			System.out.println("Vacunas no autorizadas:");
@@ -311,8 +311,8 @@ public class App {
 	}
 
 	private static void listPendingVaccines() {
-		Vaccine[] vaccines = VaccineWarehouse.getPendingVaccines();
-		if (vaccines.length == 0) {
+		var vaccines = VaccineWarehouse.getPendingVaccines();
+		if (vaccines.size() == 0) {
 			System.out.println("No hay vacunas pendientes de autorización");
 		} else {
 			System.out.println("Vacunas pendientes:");
@@ -323,6 +323,13 @@ public class App {
 	}
 
 	private static void checkLastPhaseOfEachVaccine() {
-		VaccineWarehouse.printLastCompletedPhaseOfEachVaccine();
+		Vaccine[] vaccines = VaccineWarehouse.getVaccines();
+		for (Vaccine v : vaccines) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(v.getCode());
+			sb.append(":\tFase ");
+			sb.append(v.getCompletedPhases());
+			System.out.println(sb);
+		}
 	}
 }
