@@ -1,5 +1,7 @@
 package gal.teis.model.vaccines;
 
+import java.time.LocalDate;
+
 public abstract class VaccineAuthorization implements IAuthorizable {
 
 	public static final byte PENDING = 0;
@@ -10,12 +12,14 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 	private byte completedPhases;
 
 	private byte authorizationStatus;
+	private LocalDate resultDate;
 
 	@Override
 	public final boolean authorize() {
 		boolean authorization = completedPhases == 3 && successfulPhase[0] && successfulPhase[1] && successfulPhase[2];
 		if (authorization) {
 			authorizationStatus = AUTHORIZED;
+			resultDate = LocalDate.now();
 		}
 		return authorization;
 	}
@@ -30,6 +34,7 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 		}
 		if (rejection) {
 			authorizationStatus = UNAUTHORIZED;
+			resultDate = LocalDate.now();
 		}
 		return rejection;
 	}
@@ -57,6 +62,10 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 		}
 		successfulPhase[phaseNumber - 1] = phaseComplete;
 		completedPhases++;
+	}
+
+	public LocalDate getResultDate() {
+		return resultDate;
 	}
 
 }
