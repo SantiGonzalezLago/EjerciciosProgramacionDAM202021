@@ -12,7 +12,7 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 	private byte authorizationStatus;
 
 	@Override
-	public boolean authorize() {
+	public final boolean authorize() {
 		boolean authorization = completedPhases == 3 && successfulPhase[0] && successfulPhase[1] && successfulPhase[2];
 		if (authorization) {
 			authorizationStatus = AUTHORIZED;
@@ -21,7 +21,7 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 	}
 
 	@Override
-	public boolean reject() {
+	public final boolean reject() {
 		boolean rejection = false;
 		for (int i = 0; i < completedPhases; i++) {
 			if (!successfulPhase[i]) {
@@ -34,19 +34,19 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 		return rejection;
 	}
 
-	public byte getCompletedPhases() {
+	public final byte getCompletedPhases() {
 		return completedPhases;
 	}
 
-	public boolean isAuthorized() {
+	public final boolean isAuthorized() {
 		return authorizationStatus == AUTHORIZED;
 	}
 
-	public boolean isUnauthorized() {
+	public final boolean isUnauthorized() {
 		return authorizationStatus == UNAUTHORIZED;
 	}
 
-	public void setTestPhaseResult(byte phaseNumber, boolean phaseComplete)
+	public final void setTestPhaseResult(byte phaseNumber, boolean phaseComplete)
 			throws IllegalAccessException, IllegalArgumentException {
 		if (completedPhases == 3) {
 			throw new IllegalAccessException("Ya se han completado las fases de prueba");
