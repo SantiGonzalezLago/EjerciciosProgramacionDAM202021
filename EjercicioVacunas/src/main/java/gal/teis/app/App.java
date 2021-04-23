@@ -27,8 +27,8 @@ public class App {
 	};
 
 	public static void main(String[] args) {
-		if (TestMode.ENABLED)
-			TestMode.initializeTestValues();
+		if (args.length > 0 && args[0].equalsIgnoreCase("test"))
+			TestMode.runTestMode();
 
 		sc = new Scanner(System.in);
 		scNum = new NumericScanner(sc);
@@ -275,23 +275,51 @@ public class App {
 	}
 
 	private static void listAllVaccines() {
-		System.out.println("Todas las vacunas:");
-		VaccineWarehouse.printVaccines();
+		Vaccine[] vaccines = VaccineWarehouse.getVaccines();
+		if (vaccines.length == 0) {
+			System.out.println("No hay vacunas");
+		} else {
+			System.out.println("Todas las vacunas:");
+			for (Vaccine vaccine : vaccines) {
+				System.out.println(vaccine);
+			}
+		}
 	}
 
 	private static void listAuthorizedVaccines() {
-		System.out.println("Vacunas autorizadas:");
-		VaccineWarehouse.printAuthorizedVaccines();
+		Vaccine[] vaccines = VaccineWarehouse.getAuthorizedVaccines();
+		if (vaccines.length == 0) {
+			System.out.println("No hay vacunas autorizadas");
+		} else {
+			System.out.println("Vacunas autorizadas:");
+			for (Vaccine vaccine : vaccines) {
+				System.out.println(vaccine);
+			}
+		}
 	}
 
 	private static void listUnauthorizedVaccines() {
-		System.out.println("Vacunas no autorizadas:");
-		VaccineWarehouse.printUnauthorizedVaccines();
+		Vaccine[] vaccines = VaccineWarehouse.getUnauthorizedVaccines();
+		if (vaccines.length == 0) {
+			System.out.println("No hay vacunas no autorizadas");
+		} else {
+			System.out.println("Vacunas no autorizadas:");
+			for (Vaccine vaccine : vaccines) {
+				System.out.println(vaccine);
+			}
+		}
 	}
 
 	private static void listPendingVaccines() {
-		System.out.println("Vacunas pendientes:");
-		VaccineWarehouse.printPendingVaccines();
+		Vaccine[] vaccines = VaccineWarehouse.getPendingVaccines();
+		if (vaccines.length == 0) {
+			System.out.println("No hay vacunas pendientes de autorización");
+		} else {
+			System.out.println("Vacunas pendientes:");
+			for (Vaccine vaccine : vaccines) {
+				System.out.println(vaccine);
+			}
+		}
 	}
 
 	private static void checkLastPhaseOfEachVaccine() {

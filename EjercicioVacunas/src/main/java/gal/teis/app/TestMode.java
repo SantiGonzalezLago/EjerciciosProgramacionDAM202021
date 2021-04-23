@@ -8,10 +8,13 @@ import gal.teis.model.vaccines.SoberanaVaccine;
 import gal.teis.model.vaccines.Vaccine;
 
 public class TestMode {
-	
-	protected static final boolean ENABLED = true;
 
-	protected static void initializeTestValues() {
+	protected static void runTestMode() {
+		System.out.println("SE HA INICIADO LA APLICACIÓN EN MODO TEST");
+		initializeTestValues();
+	}
+	
+	private static void initializeTestValues() {
 		try {
 			final char[] vowels = {'A','E','I','O'};
 			

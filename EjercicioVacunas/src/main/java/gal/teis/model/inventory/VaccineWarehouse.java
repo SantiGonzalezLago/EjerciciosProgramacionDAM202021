@@ -1,6 +1,7 @@
 package gal.teis.model.inventory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import gal.teis.model.vaccines.Vaccine;
@@ -39,34 +40,38 @@ public final class VaccineWarehouse {
 		return success;
 	}
 
-	public static void printVaccines() {
-		for (Vaccine v : warehouse) {
-			System.out.println(v);
-		}
+	public static Vaccine[] getVaccines() {
+		return Arrays.copyOf(warehouse.toArray(new Vaccine[warehouse.size()]), warehouse.size());
 	}
 
-	public static void printAuthorizedVaccines() {
+	public static Vaccine[] getAuthorizedVaccines() {
+		var authVaccines = new ArrayList<Vaccine>();
 		for (Vaccine v : warehouse) {
 			if (v.isAuthorized()) {
-				System.out.println(v);
+				authVaccines.add(v);
 			}
 		}
+		return authVaccines.toArray(new Vaccine[authVaccines.size()]);
 	}
 
-	public static void printUnauthorizedVaccines() {
+	public static Vaccine[] getUnauthorizedVaccines() {
+		var unauthVaccines = new ArrayList<Vaccine>();
 		for (Vaccine v : warehouse) {
 			if (v.isUnauthorized()) {
-				System.out.println(v);
+				unauthVaccines.add(v);
 			}
 		}
+		return unauthVaccines.toArray(new Vaccine[unauthVaccines.size()]);
 	}
 
-	public static void printPendingVaccines() {
+	public static Vaccine[] getPendingVaccines() {
+		var pendingVaccines = new ArrayList<Vaccine>();
 		for (Vaccine v : warehouse) {
 			if (!v.isAuthorized() && !v.isUnauthorized()) {
-				System.out.println(v);
+				pendingVaccines.add(v);
 			}
 		}
+		return pendingVaccines.toArray(new Vaccine[pendingVaccines.size()]);
 	}
 
 	public static void printLastCompletedPhaseOfEachVaccine() {
