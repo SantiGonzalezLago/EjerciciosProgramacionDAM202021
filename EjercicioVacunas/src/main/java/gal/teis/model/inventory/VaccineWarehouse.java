@@ -1,7 +1,6 @@
 package gal.teis.model.inventory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,7 @@ public final class VaccineWarehouse {
 			Vaccine v = pair.getValue();
 			if (v.isAuthorized()) {
 				authVaccines.add(v);
-			} 
+			}
 		}
 		return authVaccines;
 	}
@@ -72,8 +71,7 @@ public final class VaccineWarehouse {
 		return warehouse.get(code);
 	}
 
-	// La clase utilizará métodos estáticos, añado un constructor privado para que
-	// no se pueda instanciar
+	// La clase utilizará métodos estáticos, añado un constructor privado para que  no se pueda instanciar
 	private VaccineWarehouse() {
 	}
 
