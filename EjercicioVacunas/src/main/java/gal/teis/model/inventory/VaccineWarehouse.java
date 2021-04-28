@@ -32,7 +32,7 @@ public final class VaccineWarehouse {
 	}
 
 	public static Vaccine[] getVaccines() {
-		return Arrays.copyOf(warehouse.values().toArray(new Vaccine[warehouse.size()]), warehouse.size());
+		return warehouse.values().toArray(new Vaccine[warehouse.size()]);
 	}
 
 	public static List<Vaccine> getAuthorizedVaccines() {
