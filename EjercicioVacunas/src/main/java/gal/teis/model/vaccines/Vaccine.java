@@ -2,7 +2,7 @@ package gal.teis.model.vaccines;
 
 public abstract class Vaccine extends VaccineAuthorization {
 
-	private String code;
+	private final String code;
 	private String name;
 	private String activePrinciple;
 	private String pharmaceutical;
