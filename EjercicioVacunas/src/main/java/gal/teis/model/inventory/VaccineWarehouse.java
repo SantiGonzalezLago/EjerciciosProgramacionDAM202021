@@ -18,12 +18,13 @@ public final class VaccineWarehouse {
 	}
 
 	public static boolean add(Vaccine vaccine) {
-		boolean elementExists = false;
+		boolean success = false;
 		if (Objects.isNull(warehouse.get(vaccine.getCode()))) {
 			warehouse.put(vaccine.getCode(), vaccine);
 			total++;
+			success = true;
 		}
-		return !elementExists;
+		return success;
 	}
 
 	public static boolean remove(String code) {
