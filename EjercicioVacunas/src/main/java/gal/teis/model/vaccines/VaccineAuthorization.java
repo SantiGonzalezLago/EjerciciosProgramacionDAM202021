@@ -16,7 +16,7 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 
 	@Override
 	public final boolean authorize() {
-		boolean authorization = completedPhases == 3 && successfulPhase[0] && successfulPhase[1] && successfulPhase[2];
+		boolean authorization = authorizationStatus == PENDING && completedPhases == 3 && successfulPhase[0] && successfulPhase[1] && successfulPhase[2];
 		if (authorization) {
 			authorizationStatus = AUTHORIZED;
 			resultDate = LocalDate.now();
@@ -26,12 +26,7 @@ public abstract class VaccineAuthorization implements IAuthorizable {
 
 	@Override
 	public final boolean reject() {
-		boolean rejection = false;
-		for (int i = 0; i < completedPhases; i++) {
-			if (!successfulPhase[i]) {
-				rejection = true;
-			}
-		}
+		boolean rejection = authorizationStatus == PENDING;
 		if (rejection) {
 			authorizationStatus = UNAUTHORIZED;
 			resultDate = LocalDate.now();
