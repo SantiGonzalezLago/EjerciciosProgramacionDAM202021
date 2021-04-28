@@ -11,17 +11,15 @@ import gal.teis.model.vaccines.Vaccine;
 public final class VaccineWarehouse {
 
 	private static Map<String, Vaccine> warehouse = new HashMap<>();
-	private static int total = 0;
 
 	public int getTotal() {
-		return total;
+		return warehouse.size();
 	}
 
 	public static boolean add(Vaccine vaccine) {
 		boolean success = false;
 		if (Objects.isNull(warehouse.get(vaccine.getCode()))) {
 			warehouse.put(vaccine.getCode(), vaccine);
-			total++;
 			success = true;
 		}
 		return success;
