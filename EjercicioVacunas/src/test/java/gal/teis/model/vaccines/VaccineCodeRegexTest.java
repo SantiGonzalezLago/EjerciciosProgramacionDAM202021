@@ -9,7 +9,7 @@ class VaccineCodeRegexTest {
 	@Test
 	void testTrue1() {
 		// V, vocal, 4 letras, 2 dígitos
-		assertTrue(Vaccine.isCodeValid("VExxxx36"));
+		assertTrue(Vaccine.isCodeValid("VExxxx44"));
 	}
 
 	@Test
@@ -57,13 +57,13 @@ class VaccineCodeRegexTest {
 	@Test
 	void testFalse5() {
 		// 2 letras
-		assertFalse(Vaccine.isCodeValid("VEab12"));
+		assertFalse(Vaccine.isCodeValid("VEab44"));
 	}
 
 	@Test
 	void testFalse6() {
 		// 5 letras
-		assertFalse(Vaccine.isCodeValid("VAabcde12"));
+		assertFalse(Vaccine.isCodeValid("VAabcde44"));
 	}
 
 	@Test
@@ -75,25 +75,25 @@ class VaccineCodeRegexTest {
 	@Test
 	void testFalse8() {
 		// 3 dígitos
-		assertFalse(Vaccine.isCodeValid("VEagh458"));
+		assertFalse(Vaccine.isCodeValid("VEagh478"));
 	}
 
 	@Test
 	void testFalse9() {
 		// Sin vocal
-		assertFalse(Vaccine.isCodeValid("Vsaf48"));
+		assertFalse(Vaccine.isCodeValid("Vsaf47"));
 	}
 
 	@Test
 	void testFalse10() {
 		// Vocal minúscula
-		assertFalse(Vaccine.isCodeValid("Vasaf48"));
+		assertFalse(Vaccine.isCodeValid("Vasaf47"));
 	}
 
 	@Test
 	void testFalse11() {
 		// Letras mayúsculas
-		assertFalse(Vaccine.isCodeValid("VAsAf48"));
+		assertFalse(Vaccine.isCodeValid("VAsAf47"));
 	}
 
 }

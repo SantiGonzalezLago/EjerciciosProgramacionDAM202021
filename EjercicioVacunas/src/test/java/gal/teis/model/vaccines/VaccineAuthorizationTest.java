@@ -24,8 +24,17 @@ class VaccineAuthorizationTest {
 	}
 	
 	@Test
-	void testAuthorizeFalse() throws IllegalAccessException, IllegalArgumentException {
+	void testAuthorizeFalse1() throws IllegalAccessException, IllegalArgumentException {
 		instance.setTestPhaseResult((byte) 1, true);
+		assertFalse(instance.authorize());
+	}
+	
+	@Test
+	void testAuthorizeFalse2() throws IllegalAccessException, IllegalArgumentException {
+		instance.setTestPhaseResult((byte) 1, true);
+		instance.setTestPhaseResult((byte) 2, true);
+		instance.setTestPhaseResult((byte) 3, true);
+		instance.reject();
 		assertFalse(instance.authorize());
 	}
 	
@@ -45,17 +54,12 @@ class VaccineAuthorizationTest {
 	}
 	
 	@Test
-	void testRejectFalse1() throws IllegalAccessException, IllegalArgumentException {
+	void testRejectFalse() throws IllegalAccessException, IllegalArgumentException {
 		instance.setTestPhaseResult((byte) 1, true);
 		instance.setTestPhaseResult((byte) 2, true);
-		instance.setTestPhaseResult((byte) 3, true);
-		assertFalse(instance.reject());
-	}
-	
-	@Test
-	void testRejectFalse2() throws IllegalAccessException, IllegalArgumentException {
-		instance.setTestPhaseResult((byte) 1, true);
-		assertFalse(instance.reject());
+		instance.setTestPhaseResult((byte) 3, false);
+		instance.authorize();
+		assertTrue(instance.reject());
 	}
 
 }
