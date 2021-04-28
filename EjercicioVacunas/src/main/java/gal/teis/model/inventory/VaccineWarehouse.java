@@ -35,8 +35,7 @@ public final class VaccineWarehouse {
 
 	public static List<Vaccine> getAuthorizedVaccines() {
 		var authVaccines = new ArrayList<Vaccine>();
-		for (var pair : warehouse.entrySet()) {
-			Vaccine v = pair.getValue();
+		for (Vaccine v : warehouse.values()) {
 			if (v.isAuthorized()) {
 				authVaccines.add(v);
 			}
@@ -46,8 +45,7 @@ public final class VaccineWarehouse {
 
 	public static List<Vaccine> getUnauthorizedVaccines() {
 		var unauthVaccines = new ArrayList<Vaccine>();
-		for (var pair : warehouse.entrySet()) {
-			Vaccine v = pair.getValue();
+		for (Vaccine v : warehouse.values()) {
 			if (v.isUnauthorized()) {
 				unauthVaccines.add(v);
 			}
@@ -57,8 +55,7 @@ public final class VaccineWarehouse {
 
 	public static List<Vaccine> getPendingVaccines() {
 		var pendingVaccines = new ArrayList<Vaccine>();
-		for (var pair : warehouse.entrySet()) {
-			Vaccine v = pair.getValue();
+		for (Vaccine v : warehouse.values()) {
 			if (!v.isAuthorized() && !v.isUnauthorized()) {
 				pendingVaccines.add(v);
 			}
