@@ -7,6 +7,13 @@ import gal.teis.model.vaccines.PfizerVaccine;
 import gal.teis.model.vaccines.SoberanaVaccine;
 import gal.teis.model.vaccines.Vaccine;
 
+/**
+ * <h2>TestMode</h2>
+ * 
+ * Esta clase se utilizará para inicializar valores por defecto de la aplicación para realizar pruebas
+ * 
+ * @author Santiago González Lago
+ */
 public class TestMode {
 
 	protected static void runTestMode() {

@@ -3,6 +3,13 @@ package gal.teis.app;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * <h2>NumericScanner</h2>
+ * 
+ * Esta clase métodos necesarios para el control de datos al leer números de un Scanner
+ * 
+ * @author Santiago González Lago
+ */
 public class NumericScanner {
 
     private final Scanner sc;

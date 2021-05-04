@@ -7,6 +7,13 @@ import java.util.Scanner;
 import gal.teis.model.inventory.VaccineWarehouse;
 import gal.teis.model.vaccines.*;
 
+/**
+ * <h2>App</h2>
+ * 
+ * Esta clase contiene los métodos necesarios para el funcionamiento de la aplicación
+ * 
+ * @author Santiago González Lago
+ */
 public class App {
 
 	private static final String VACCINE_NO_EXISTS = "No existe una vacuna con ese código en el almacén.";
@@ -26,6 +33,11 @@ public class App {
 			"Salir" // 11
 	};
 
+	/**
+	 * La clase main inicializa los scanners y llama en bucle al menú
+	 * 
+	 * @param args Los argumentos de línea de comandos, si el primero es "test", se iniciará en modo de pruebas
+	 */
 	public static void main(String[] args) {
 		if (args.length > 0 && args[0].equalsIgnoreCase("test"))
 			TestMode.runTestMode();
@@ -41,6 +53,11 @@ public class App {
 		System.out.println("Hasta la próxima");
 	}
 
+	/**
+	 * Imprime el menú principal, lee por teclado la opción y llama al método correspondiente
+	 * 
+	 * @return true si el menú debe ejecutarse de nuevo
+	 */
 	private static boolean menu() {
 		boolean repeatMenu = true;
 
@@ -87,6 +104,11 @@ public class App {
 		return repeatMenu;
 	}
 
+	/**
+	 * Lee por teclado un byte y comprueba que esté en rango de las opciones del menú
+	 * 
+	 * @return La opción elegida
+	 */
 	private static byte readOption() {
 		boolean error;
 		byte option = 0;
@@ -103,6 +125,11 @@ public class App {
 		return option;
 	}
 
+	/**
+	 * Lee un String por teclado y comprueba que sea un código válido
+	 * 
+	 * @return El codigo introducido
+	 */
 	private static String readCode() {
 		boolean error;
 		String code = null;
@@ -118,6 +145,11 @@ public class App {
 		return code;
 	}
 
+	/**
+	 * Permite elegir por teclado una clase de vacuna
+	 * 
+	 * @return La clase elegida
+	 */
 	private static Class<? extends Vaccine> readVaccineClass() {
 		Class<? extends Vaccine> type = null;
 		while (Objects.isNull(type)) {
@@ -140,6 +172,9 @@ public class App {
 		return type;
 	}
 
+	/**
+	 * Busca la vacuna con el código especificado en el almacén
+	 */
 	private static void findVaccine() {
 		System.out.println("Introduzca el código de la vacuna:");
 		String code = readCode();
@@ -151,6 +186,10 @@ public class App {
 		}
 	}
 
+	/**
+	 * Crea una vacuna con los datos introducidos
+	 * Utiliza Reflection para construir la clase correcta sin necesidad de estructuras de control
+	 */
 	private static void addVaccine() {
 		try {
 			var vaccineType = readVaccineClass();
@@ -170,6 +209,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * Elimina la vacuna con el código especificado del almacen
+	 */
 	private static void removeVaccine() {
 		System.out.println("Introduzca el código de la vacuna:");
 		String code = readCode();
@@ -180,6 +222,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * Busca una vacuna en el almacén e introduce resultados de un test
+	 */
 	private static void addTestResults() {
 		System.out.println("Introduzca el código de la vacuna:");
 		Vaccine vaccine = VaccineWarehouse.getVaccine(readCode());
@@ -197,6 +242,11 @@ public class App {
 		}
 	}
 
+	/**
+	 * Permite elegir al usuario si la vacuna o superado o fallado una fase
+	 * 
+	 * @return true para superada, false para fallida
+	 */
 	private static boolean readResult() {
 		boolean error;
 		boolean result = false;
@@ -220,6 +270,9 @@ public class App {
 		return result;
 	}
 
+	/**
+	 * Busca una vacuna en el almacén y la autoriza o rechaza
+	 */
 	private static void authorizeRejectVaccine() {
 		System.out.println("Introduzca el código de la vacuna:");
 		Vaccine vaccine = VaccineWarehouse.getVaccine(readCode());
@@ -253,6 +306,11 @@ public class App {
 		}
 	}
 
+	/**
+	 * Solicita al usuario que confirme una decisión realizada con anterioridad
+	 * 
+	 * @return true si se ha confirmado
+	 */
 	private static boolean confirm() {
 		boolean success = false;
 		boolean yes = false;
@@ -274,6 +332,9 @@ public class App {
 		return yes;
 	}
 
+	/**
+	 * Muestra por pantalla todas las vacunas del almacén
+	 */
 	private static void listAllVaccines() {
 		Vaccine[] vaccines = VaccineWarehouse.getVaccines();
 		if (vaccines.length == 0) {
@@ -286,6 +347,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * Muestra por pantalla todas las vacunas del almacén que han sido autorizadas
+	 */
 	private static void listAuthorizedVaccines() {
 		var vaccines = VaccineWarehouse.getAuthorizedVaccines();
 		if (vaccines.size() == 0) {
@@ -298,6 +362,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * Muestra por pantalla todas las vacunas del almacén que han sido rechazadas
+	 */
 	private static void listUnauthorizedVaccines() {
 		var vaccines = VaccineWarehouse.getUnauthorizedVaccines();
 		if (vaccines.size() == 0) {
@@ -310,6 +377,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * Muestra por pantalla todas las vacunas del almacén pendientes de autorización
+	 */
 	private static void listPendingVaccines() {
 		var vaccines = VaccineWarehouse.getPendingVaccines();
 		if (vaccines.size() == 0) {
@@ -322,6 +392,9 @@ public class App {
 		}
 	}
 
+	/**
+	 * Muestra por pantalla la última fase completada de cada vacuna
+	 */
 	private static void checkLastPhaseOfEachVaccine() {
 		Vaccine[] vaccines = VaccineWarehouse.getVaccines();
 		for (Vaccine v : vaccines) {
