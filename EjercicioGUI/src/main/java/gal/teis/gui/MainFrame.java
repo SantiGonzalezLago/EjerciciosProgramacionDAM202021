@@ -1,6 +1,5 @@
 package gal.teis.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -11,7 +10,6 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		setTitle("SOY UNA VENTANA");
-		getContentPane().setBackground(Color.PINK);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
