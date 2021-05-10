@@ -20,7 +20,7 @@ public class App {
 	private static Scanner sc;
 	private static NumericScanner scNum;
 
-	private static final String[] MENU_OPTIONS = { "Listar todas las vacunas", // 1
+	public static final String[] MENU_OPTIONS = { "Listar todas las vacunas", // 1
 			"Buscar vacuna", // 2
 			"Agregar vacuna", // 3
 			"Eliminar vacuna", // 4
@@ -63,66 +63,92 @@ public class App {
 
 		System.out.println("Elija una opción:");
 		for (int i = 0; i < MENU_OPTIONS.length; i++) {
-			System.out.println((i + 1) + ". " + MENU_OPTIONS[i]);
+			System.out.printf("%d. %s%n", (i + 1), MENU_OPTIONS[i]);
 		}
+		System.out.println(
+				"Para recibir ayuda, escriba man y el número de la opción, por ejemplo, para recibir ayuda de la opción 1, escriba man 1.");
 
-		switch (readOption()) {
-		case 1:
-			listAllVaccines();
-			break;
-		case 2:
-			findVaccine();
-			break;
-		case 3:
-			addVaccine();
-			break;
-		case 4:
-			removeVaccine();
-			break;
-		case 5:
-			addTestResults();
-			break;
-		case 6:
-			authorizeRejectVaccine();
-			break;
-		case 7:
-			listAuthorizedVaccines();
-			break;
-		case 8:
-			listUnauthorizedVaccines();
-			break;
-		case 9:
-			listPendingVaccines();
-			break;
-		case 10:
-			checkLastPhaseOfEachVaccine();
-			break;
-		case 11:
-			repeatMenu = false;
+		int option = readOption();
+
+		if (option % 1000 == 0) {
+			// La opción se multiplicará por 1000 en el método readOption() si el usuario pidió ayuda
+			Help.getHelp(option / 1000);
+		} else {
+			switch (option) {
+			case 1:
+				listAllVaccines();
+				break;
+			case 2:
+				findVaccine();
+				break;
+			case 3:
+				addVaccine();
+				break;
+			case 4:
+				removeVaccine();
+				break;
+			case 5:
+				addTestResults();
+				break;
+			case 6:
+				authorizeRejectVaccine();
+				break;
+			case 7:
+				listAuthorizedVaccines();
+				break;
+			case 8:
+				listUnauthorizedVaccines();
+				break;
+			case 9:
+				listPendingVaccines();
+				break;
+			case 10:
+				checkLastPhaseOfEachVaccine();
+				break;
+			case 11:
+				repeatMenu = false;
+			}
 		}
-
 		return repeatMenu;
 	}
 
 	/**
 	 * Lee por teclado un byte y comprueba que esté en rango de las opciones del menú
 	 * 
-	 * @return La opción elegida
+	 * @return La opción elegida, multiplicada por 1000 en caso de que el usuario solicite ayuda
 	 */
-	private static byte readOption() {
+	private static int readOption() {
 		boolean error;
-		byte option = 0;
+		int option = 0;
+		boolean help = false;
 
 		do {
 			error = false;
-			option = scNum.readByte();
-			if (option <= 0 || option > MENU_OPTIONS.length) {
+			String input = sc.nextLine();
+			try {
+				option = Integer.valueOf(input);
+			} catch (NumberFormatException ex) {
+				String[] splitInput = input.split(" ");
+				if (splitInput.length == 2 && splitInput[0].equals("man")) {
+					try {
+						option = Integer.valueOf(splitInput[1]);
+						help = true;
+					} catch (NumberFormatException ex2) {
+						System.out.println("El valor introducido no es válido");
+					}
+				} else {
+					System.out.println("El valor introducido no es válido");
+					error = true;
+				}
+			}
+
+			if (!error && (option <= 0 || option > MENU_OPTIONS.length)) {
 				System.out.println("Debe introducir un valor entre 1 y " + MENU_OPTIONS.length);
 				error = true;
 			}
 		} while (error);
 
-		return option;
+		return help ? (1000 * option) : option;
 	}
 
 	/**
