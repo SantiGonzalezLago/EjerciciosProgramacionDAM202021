@@ -7,8 +7,8 @@ import gal.teis.gui3.ManyButtonsOneActionListFrame;
 @SuppressWarnings("unused")
 public class App {
 	public static void main(String[] args) {
-//		new MainFrame().setVisible(true);
+		new MainFrame().setVisible(true);
 //		new NoLayoutFrame().setVisible(true);
-		new ManyButtonsOneActionListFrame().setVisible(true);
+//		new ManyButtonsOneActionListFrame().setVisible(true);
 	}
 }
