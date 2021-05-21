@@ -1,12 +1,16 @@
 package gal.teis.app;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -41,7 +45,8 @@ public class App {
 		System.out.println("Elija una opción:");
 		System.out.println("1. Leer contenido del archivo");
 		System.out.println("2. Escribir en el archivo");
-		System.out.println("3. Salir");
+		System.out.println("3. Contar en el archivo");
+		System.out.println("0. Salir");
 
 		switch (readOption()) {
 		case 1:
@@ -51,11 +56,64 @@ public class App {
 			writeFile();
 			break;
 		case 3:
+			countFile();
+			break;
+		case 0:
 			System.out.println("Hasta la próxima");
 			repeatMenu = false;
+			break;
+		default:
+			System.out.println("Opción no válida");
 		}
 
 		return repeatMenu;
+	}
+
+	private static void countFile() {
+		try (FileInputStream fileStream = new FileInputStream(file);
+				InputStreamReader input = new InputStreamReader(fileStream);
+				BufferedReader reader = new BufferedReader(input);) {
+
+			int charCount = 0;
+			int wordCount = 0;
+			int lineCount = 1;
+			int whitespaceCount = 0;
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.equals("")) {
+					lineCount++;
+				} else {
+					charCount += line.length();
+					String[] wordList = line.split("\\s+"); // \\s+ es el delimitador de espacio en Java
+					wordCount += wordList.length;
+					whitespaceCount += wordCount - 1;
+				}
+			}
+
+			System.out.printf("Carácteres: %d%n", charCount);
+			System.out.printf("Palabras: %d%n", wordCount);
+			System.out.printf("Líneas: %d%n", lineCount);
+			System.out.printf("Espacios en blanco: %d%n", whitespaceCount);
+
+			float size = ((float) Files.size(file.toPath()));
+			int divisionCounter = 0;
+			while (size > 1024 && divisionCounter < 3) {
+				size /= 1024f;
+				divisionCounter++;
+			}
+			String unit = switch (divisionCounter) {
+			case 0 -> "B";
+			case 1 -> "kiB";
+			case 2 -> "MiB";
+			case 3 -> "GiB";
+			default -> "¿¿¿???";
+			};
+			System.out.printf("Tamaño: %.2f %s%n", size, unit);
+
+		} catch (IOException e) {
+			System.out.printf("Se ha producido un error: %s%n", e.getMessage());
+		}
 	}
 
 	private static void readFile() {
@@ -64,8 +122,10 @@ public class App {
 			StringBuilder sb = new StringBuilder();
 			while (reader.read(bufer) != -1) {
 				sb.append(bufer);
+				bufer = new char[1024];
 			}
 			System.out.println(sb.toString());
+			
 		} catch (IOException e) {
 			System.out.printf("Se ha producido un error: %s%n", e.getMessage());
 		}
@@ -89,8 +149,8 @@ public class App {
 			error = false;
 			try {
 				opcion = sc.nextByte();
-				if (opcion <= 0 || opcion > 3) {
-					System.out.println("Debe introducir un valor entre 1 y 3");
+				if (opcion < 0) {
+					System.out.println("Los valores negativos no son válidos");
 					error = true;
 				}
 			} catch (InputMismatchException ex) {
